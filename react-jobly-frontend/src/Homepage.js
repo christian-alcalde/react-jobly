@@ -1,20 +1,24 @@
 import UserContext from "./userContext";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 
 function Homepage() {
-  const { user } = useContext(UserContext);
-
+  const { currentUser } = useContext(UserContext);
 
   return (
     <div className="container">
       <h1 className="">Jobly</h1>
       <h4 className="">All the jobs in one, convenient place.</h4>
-      {user ? (
-        <div className="">Welcome back, {user.firstName}</div>
+      {currentUser ? (
+        <div className="">Welcome back, {currentUser.firstName}</div>
       ) : (
         <div className="">
-          <button className="btn btn-primary">Log In</button>
-          <button className="btn btn-primary">Sign Up</button>
+          <Link to="/login">
+            <button className="btn btn-primary">Log In</button>
+          </Link>
+          <Link to="/signup">
+            <button className="btn btn-primary">Sign Up</button>
+          </Link>
         </div>
       )}
     </div>

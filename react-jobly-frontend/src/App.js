@@ -2,9 +2,11 @@ import "./App.css";
 import RouteList from "./RouteList";
 import Navigation from "./Navigation";
 import { BrowserRouter } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UserContext from "./userContext";
 import JoblyApi from "./api";
+import Loading from "./Loading";
+import jwt from "jwt-decode";
 
 /** Site application.
  *
@@ -12,47 +14,68 @@ import JoblyApi from "./api";
  **/
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [currentUser, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [token, setToken] = useState(null);
+  const [alert, setAlert] = useState(null);
+
+  useEffect(
+    function addCurrUserToState() {
+      async function getUser() {
+        const username = jwt(token).username;
+        const currentUser = await JoblyApi.getUser(username);
+        setUser(currentUser);
+        setIsLoading(false);
+      }
+      getUser();
+    },
+    [token]
+  );
 
   async function handleLogin(formData) {
-    //set loading to true
-    const token = await JoblyApi.login(formData);
-
-    if (token) {
-      JoblyApi.token = token;
-      await getUser(formData.username);
+    if (alert) setAlert(null);
+    setIsLoading(true);
+    try {
+      const response = await JoblyApi.login(formData);
+      JoblyApi.token = response;
+      setToken(response);
+    } catch (err) {
+      setAlert(err[0]);
     }
-    //set loading to false
+    setIsLoading(false);
   }
 
   async function handleRegister(formData) {
-    const token = await JoblyApi.register(formData);
+    setIsLoading(true);
+    const tokenFromApi = await JoblyApi.register(formData);
 
-    if (token) {
-      JoblyApi.token = token;
-      getUser(formData.username);
+    if (tokenFromApi) {
+      JoblyApi.token = tokenFromApi;
+      setToken(tokenFromApi);
     }
+    setIsLoading(false);
   }
 
-  function handleLogout(){
+  function handleLogout() {
     JoblyApi.token = null;
     setUser(null);
-  }
-
-  async function getUser(username) {
-    const user = await JoblyApi.getUser(username);
-    setUser(user);
+    setToken(null);
   }
 
   return (
     <div className="App">
       <BrowserRouter>
-        <UserContext.Provider value={{ user }}>
-          <Navigation handleLogout={handleLogout}/>
-          <RouteList
-            handleLogin={handleLogin}
-            handleRegister={handleRegister}
-          />
+        <UserContext.Provider value={{ currentUser }}>
+          <Navigation handleLogout={handleLogout} />
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <RouteList
+              handleLogin={handleLogin}
+              handleRegister={handleRegister}
+              alert={alert}
+            />
+          )}
         </UserContext.Provider>
       </BrowserRouter>
     </div>

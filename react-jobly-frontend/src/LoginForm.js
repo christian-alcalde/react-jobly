@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Alert from "./Alert";
 
-function LoginForm({ handleLogin }) {
+function LoginForm({ handleLogin, alert = null }) {
   const initialFormData = { username: "", password: "" };
   const [formData, setFormData] = useState(initialFormData);
   const navigate = useNavigate();
@@ -20,7 +21,12 @@ function LoginForm({ handleLogin }) {
     evt.preventDefault();
     handleLogin(formData);
     setFormData(initialFormData);
-    navigate("/")
+    if (!alert) {
+      console.log("ALERT");
+      navigate("/login");
+    } else {
+      navigate("/");
+    }
   }
 
   return (
@@ -52,6 +58,7 @@ function LoginForm({ handleLogin }) {
               aria-label="password"
             />
           </div>
+          {alert ? <Alert error={alert} /> : <></>}
           <button className="btn-primary btn">Submit</button>
         </form>
       </div>

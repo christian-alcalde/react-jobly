@@ -12,11 +12,14 @@ import ProfileForm from "./ProfileForm";
  * App -> RouteList
  **/
 
-function RouteList({ handleLogin, handleRegister }) {
+function RouteList({ handleLogin, handleRegister, alert }) {
   return (
     <Routes>
       <Route path="/" element={<Homepage />} />
-      <Route path="/login" element={<LoginForm handleLogin={handleLogin} />} />
+      <Route
+        path="/login"
+        element={<LoginForm handleLogin={handleLogin} alert={alert} />}
+      />
       <Route
         path="/signup"
         element={<SignupForm handleRegister={handleRegister} />}

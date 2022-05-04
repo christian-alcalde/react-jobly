@@ -2,8 +2,8 @@ import { NavLink } from "react-router-dom";
 import { useContext } from "react";
 import UserContext from "./userContext";
 
-function Navigation({handleLogout}) {
-  const { user } = useContext(UserContext);
+function Navigation({ handleLogout }) {
+  const { currentUser } = useContext(UserContext);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -12,7 +12,7 @@ function Navigation({handleLogout}) {
           <NavLink to="/">Jobly</NavLink>
         </span>
         <div>
-          {user ? (
+          {currentUser ? (
             <div>
               <span className="m-2">
                 <NavLink to="/companies">Companies</NavLink>
@@ -21,7 +21,9 @@ function Navigation({handleLogout}) {
                 <NavLink to="/jobs">Jobs</NavLink>
               </span>
               <span className="m-2">
-                <NavLink to="/" onClick={handleLogout}>Log out {user.username} </NavLink>
+                <NavLink to="/" onClick={handleLogout}>
+                  Log out {currentUser.username}{" "}
+                </NavLink>
               </span>
             </div>
           ) : (

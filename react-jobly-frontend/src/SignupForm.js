@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SignupForm({ handleRegister }) {
   const initialFormData = {
@@ -9,6 +10,7 @@ function SignupForm({ handleRegister }) {
     email: "",
   };
   const [formData, setFormData] = useState(initialFormData);
+  const navigate = useNavigate();
 
   /** Update form input. */
   function handleChange(evt) {
@@ -24,6 +26,7 @@ function SignupForm({ handleRegister }) {
     evt.preventDefault();
     handleRegister(formData);
     setFormData(initialFormData);
+    navigate("/companies");
   }
 
   return (
