@@ -2,8 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import SearchForm from "./SearchForm";
 import CompanyCard from "./CompanyCard";
-import { Link }from "react-router-dom"
-import JoblyApi from "//api.js"
+import { Link } from "react-router-dom";
+import JoblyApi from "./api";
 
 /** Show list of all companies.
  *
@@ -14,23 +14,21 @@ import JoblyApi from "//api.js"
  * RouteList -> CompanyList -> [CompanyCard, SearchForm]
  */
 
-const api = JoblyApi();
-
 function CompanyList() {
   const [companies, setCompanies] = useState({ data: null, isLoading: true });
 
   useEffect(function fetchCompaniesOnRender() {
     async function getCompanyList() {
-      const resp = api.getCompanies();
-      setCompanies({ data: resp.data.companies, isLoading: false });
+      const resp = await JoblyApi.getCompanies();
+      setCompanies({ data: resp, isLoading: false });
     }
     getCompanyList();
   }, []);
 
   /** Makes axios request based on search term, updates companies state */
   async function searchCompanies(searchTerm) {
-    const resp = api.getCompanies(searchTerm)
-    setCompanies({ data: resp.data.companies, isLoading: false });
+    const resp = await JoblyApi.getCompanies(searchTerm);
+    setCompanies({ data: resp, isLoading: false });
   }
 
   if (companies.isLoading) return <i>Loading...</i>;
@@ -44,7 +42,9 @@ function CompanyList() {
         <ul className="col-9">
           {companies.data.map((company) => (
             <li key={company.handle} className="card m-3">
-              <Link to={`/companies/${company.handle}`}><CompanyCard company={company} /></Link>
+              <Link to={`/companies/${company.handle}`}>
+                <CompanyCard company={company} />
+              </Link>
             </li>
           ))}
         </ul>

@@ -12,13 +12,13 @@ import ProfileForm from "./ProfileForm";
  * App -> RouteList
  **/
 
-function RouteList() {
+function RouteList({ handleLogin }) {
   return (
     <Routes>
       <Route path="/" element={<Homepage />} />
-      <Route path="/login" element={<LoginForm />} />
+      {/* <Route path="/login" element={<LoginForm handleLogin={handleLogin} />} />
       <Route path="/signup" element={<SignupForm />} />
-      <Route path="/profile" element={<ProfileForm />} />
+      <Route path="/profile" element={<ProfileForm />} /> */}
       <Route path="/companies" element={<CompanyList />} />
       <Route path="/companies/:name" element={<CompanyDetail />} />
       <Route path="/jobs" element={<JobList />} />

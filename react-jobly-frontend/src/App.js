@@ -4,23 +4,23 @@ import Navigation from "./Navigation";
 import { BrowserRouter } from "react-router-dom";
 import { useState, useContext } from "react";
 import UserContext from "./userContext";
-import JoblyApi from "//api"
+import JoblyApi from "./api";
 
 /** Site application.
  *
  * App -> [Navigation, RouteList]
  **/
 
-const api = JoblyApi();
-
 function App() {
   const [user, setUser] = useState(null);
 
-  async function handleLogin(formData){
-    const resp = api.login(formData)
+  // async function handleLogin(formData) {
+  //   api.token = null;
+  //   const resp = await api.login(formData);
+  //   console.log("resp", resp);
 
-    if(resp.user) setUser(resp.user); // fix this 
-  }
+  //   if (resp.token) setUser(resp.token);
+  // }
 
   return (
     <div className="App">
