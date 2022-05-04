@@ -9,17 +9,18 @@ import JobCard from "./JobCard";
  * RouteList -> { JobList, CompanyDetail } -> JobCardList -> JobCard
  */
 
-function JobCardList({jobs}) {
-
+function JobCardList({ jobs }) {
   return (
-    <ul>
-          {jobs.map(job => (
-          <li key={job.id}>
+    <div className="row justify-content-center">
+      <ul className="col-9">
+        {jobs.map((job) => (
+          <li key={job.id} className="card m-3 container">
             <JobCard job={job} />
           </li>
-      ))}
+        ))}
       </ul>
-  )
+    </div>
+  );
 }
 
 export default JobCardList;

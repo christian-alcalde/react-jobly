@@ -2,10 +2,18 @@ import { NavLink } from "react-router-dom";
 
 function Navigation() {
   return (
-    <nav>
-      <NavLink to="/">Jobly</NavLink>
-      <NavLink to="/companies">Companies</NavLink>
-      <NavLink to="/jobs">Jobs</NavLink>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <span className="m-2"><NavLink to="/">Jobly</NavLink></span>
+        <div>
+          <span className="m-2">
+            <NavLink to="/companies">Companies</NavLink>
+          </span>
+          <span className="m-2">
+            <NavLink to="/jobs">Jobs</NavLink>
+          </span>
+        </div>
+      </div>
     </nav>
   );
 }

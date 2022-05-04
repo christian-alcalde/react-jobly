@@ -11,10 +11,10 @@ function JobCard({job}) {
 
   return (
     <div>
-      <p>{job.title}</p>
-      <p>{job.companyName}</p>
-      <p>{job.salary}</p>
-      <p>{job.equity}</p>
+      <p className="fw-bold">{job.title}</p>
+      <p className="mb-5">{job.companyName}</p>
+      <p className="fw-light">Salary: {job.salary}</p>
+      <p className="fw-light">Equity: {job.equity}</p>
     </div>
   )
 

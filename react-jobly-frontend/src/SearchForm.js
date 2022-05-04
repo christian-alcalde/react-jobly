@@ -25,19 +25,21 @@ function SearchForm({ search }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    <form className="SearchForm-form row g-3 my-3 justify-content-center" onSubmit={handleSubmit}>
+      <div className="col-4">
         <input
           id="listSearch"
           name="search"
-          className="form-control"
           placeholder="Search"
+          className="form-control"
           onChange={handleChange}
           value={formData}
           aria-label="Search"
         />
       </div>
-      <button>Search</button>
+      <div className="col-auto">
+        <button className="btn btn-primary">Search</button>
+      </div>
     </form>
   );
 }

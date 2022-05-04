@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import SearchForm from "./SearchForm";
 import CompanyCard from "./CompanyCard";
 
-
 /** Show list of all companies.
  *
  * Props: none
@@ -36,14 +35,18 @@ function CompanyList() {
 
   return (
     <div>
-      <SearchForm search={searchCompanies} />
-      <ul>
-        {companies.data.map((company) => (
-          <li key={company.handle}>
-            <CompanyCard company={company} />
-          </li>
-        ))}
-      </ul>
+      <div>
+        <SearchForm search={searchCompanies} />
+      </div>
+      <div className="row justify-content-center">
+        <ul className="col-9">
+          {companies.data.map((company) => (
+            <li key={company.handle} className="card m-3">
+              <CompanyCard company={company} />
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

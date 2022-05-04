@@ -9,12 +9,12 @@
 
 function CompanyCard({ company }) {
   return (
-    <div>
-      <p>
+    <div className="CompanyCard-card">
+      <p className="d-flex justify-content-between container">
         {company.name}{" "}
-        <img src={`${company.logoUrl}`} alt={`${company.name}'s logo.`}></img>
+        <img src={`${company.logoUrl}`} alt={`${company.name}'s logo.`} className="company-logo"></img>
       </p>
-      <p>{company.description}</p>
+      <p className="container">{company.description}</p>
     </div>
   );
 }
