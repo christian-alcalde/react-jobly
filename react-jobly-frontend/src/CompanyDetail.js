@@ -3,6 +3,15 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import JobCardList from "./JobCardList";
 
+/** Displays info of a single company
+ *
+ * Props: none
+ *
+ * State: company - { data: {handle, name, description, numEmployees, logoUrl}, isLoading: true }
+ *
+ * RouteList -> CompanyDetail -> JobCardList -> JobCard
+ */
+
 function CompanyDetail() {
   const { name } = useParams();
   const [company, setCompany] = useState({ data: null, isLoading: true });

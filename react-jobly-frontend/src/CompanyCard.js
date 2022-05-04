@@ -1,3 +1,12 @@
+/** Displays a single CompanyCard
+ *
+ * Props: company - {handle, name, description, numEmployees, logoUrl}
+ *
+ * State: none
+ *
+ * RouteList ->CompanyList -> CompanyCard
+ */
+
 function CompanyCard({ company }) {
   return (
     <div>

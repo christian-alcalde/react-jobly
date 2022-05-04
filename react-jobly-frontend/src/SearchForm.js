@@ -1,16 +1,25 @@
 import { useState } from "react";
 
+/** Form for filtering companies/jobs.
+ *
+ * Props:
+ * - search: function to call in parent.
+ *
+ * { JobList, CompanyList } -> SearchForm
+ */
+
 function SearchForm({ search }) {
   const [formData, setFormData] = useState("");
 
+  /** Update form input. */
   function handleChange(evt) {
     const { value } = evt.target;
     setFormData(value);
   }
 
+  /** Call parent function and clear form. */
   function handleSubmit(evt) {
     evt.preventDefault();
-    console.log("formdata", formData);
     search(formData);
     setFormData("");
   }

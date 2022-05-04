@@ -3,6 +3,16 @@ import { useEffect, useState } from "react";
 import SearchForm from "./SearchForm";
 import CompanyCard from "./CompanyCard";
 
+
+/** Show list of all companies.
+ *
+ * Props: none
+ *
+ * State: companies- { data: [{handle, name, description, numEmployees, logoUrl}, ...], isLoading: true }
+ *
+ * RouteList -> CompanyList -> [CompanyCard, SearchForm]
+ */
+
 function CompanyList() {
   const [companies, setCompanies] = useState({ data: null, isLoading: true });
 
@@ -14,8 +24,8 @@ function CompanyList() {
     getCompanies();
   }, []);
 
+  /** Makes axios request based on search term, updates companies state */
   async function searchCompanies(searchTerm) {
-    console.log("searchTerm", searchTerm);
     const resp = await axios.get(
       `http://localhost:3001/companies?name=${searchTerm}`
     );
