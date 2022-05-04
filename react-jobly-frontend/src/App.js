@@ -15,21 +15,28 @@ function App() {
   const [user, setUser] = useState(null);
 
   async function handleLogin(formData) {
-    JoblyApi.token = null;
+    //set loading to true
     const token = await JoblyApi.login(formData);
 
     if (token) {
+      JoblyApi.token = token;
+      await getUser(formData.username);
+    }
+    //set loading to false
+  }
+
+  async function handleRegister(formData) {
+    const token = await JoblyApi.register(formData);
+
+    if (token) {
+      JoblyApi.token = token;
       getUser(formData.username);
     }
   }
 
-  async function handleRegister(formData) {
+  function handleLogout(){
     JoblyApi.token = null;
-    const token = await JoblyApi.register(formData);
-
-    if (token) {
-      getUser(formData.username);
-    }
+    setUser(null);
   }
 
   async function getUser(username) {
@@ -41,7 +48,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <UserContext.Provider value={{ user }}>
-          <Navigation />
+          <Navigation handleLogout={handleLogout}/>
           <RouteList
             handleLogin={handleLogin}
             handleRegister={handleRegister}
