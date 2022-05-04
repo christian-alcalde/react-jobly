@@ -31,8 +31,10 @@ function CompanyDetail() {
   console.log("company=", company);
   return (
     <div>
-      <h2>{company.data.name}</h2>
-      <p>{company.data.description}</p>
+      <div className="container m-5">
+        <h2>{company.data.name}</h2>
+        <p>{company.data.description}</p>
+      </div>
       <JobCardList jobs={company.data.jobs} />
     </div>
   );

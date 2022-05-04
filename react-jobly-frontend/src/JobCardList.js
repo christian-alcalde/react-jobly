@@ -14,7 +14,7 @@ function JobCardList({ jobs }) {
     <div className="row justify-content-center">
       <ul className="col-9">
         {jobs.map((job) => (
-          <li key={job.id} className="card m-3 container">
+          <li key={job.id} className="card m-3">
             <JobCard job={job} />
           </li>
         ))}

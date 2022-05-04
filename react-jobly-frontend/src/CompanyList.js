@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import SearchForm from "./SearchForm";
 import CompanyCard from "./CompanyCard";
+import { Link }from "react-router-dom"
+import JoblyApi from "//api.js"
 
 /** Show list of all companies.
  *
@@ -12,22 +14,22 @@ import CompanyCard from "./CompanyCard";
  * RouteList -> CompanyList -> [CompanyCard, SearchForm]
  */
 
+const api = JoblyApi();
+
 function CompanyList() {
   const [companies, setCompanies] = useState({ data: null, isLoading: true });
 
   useEffect(function fetchCompaniesOnRender() {
-    async function getCompanies(name) {
-      const resp = await axios.get(`http://localhost:3001/companies`);
+    async function getCompanyList() {
+      const resp = api.getCompanies();
       setCompanies({ data: resp.data.companies, isLoading: false });
     }
-    getCompanies();
+    getCompanyList();
   }, []);
 
   /** Makes axios request based on search term, updates companies state */
   async function searchCompanies(searchTerm) {
-    const resp = await axios.get(
-      `http://localhost:3001/companies?name=${searchTerm}`
-    );
+    const resp = api.getCompanies(searchTerm)
     setCompanies({ data: resp.data.companies, isLoading: false });
   }
 
@@ -42,7 +44,7 @@ function CompanyList() {
         <ul className="col-9">
           {companies.data.map((company) => (
             <li key={company.handle} className="card m-3">
-              <CompanyCard company={company} />
+              <Link to={`/companies/${company.handle}`}><CompanyCard company={company} /></Link>
             </li>
           ))}
         </ul>

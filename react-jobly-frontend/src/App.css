@@ -7,4 +7,10 @@
 
 .card {
   width: 90%;
+  padding: 10px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
 }
