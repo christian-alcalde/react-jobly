@@ -1,6 +1,10 @@
 import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import UserContext from "./userContext";
 
 function Navigation() {
+  const { user } = useContext(UserContext);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -8,12 +12,28 @@ function Navigation() {
           <NavLink to="/">Jobly</NavLink>
         </span>
         <div>
-          <span className="m-2">
-            <NavLink to="/companies">Companies</NavLink>
-          </span>
-          <span className="m-2">
-            <NavLink to="/jobs">Jobs</NavLink>
-          </span>
+          {user ? (
+            <div>
+              <span className="m-2">
+                <NavLink to="/companies">Companies</NavLink>
+              </span>
+              <span className="m-2">
+                <NavLink to="/jobs">Jobs</NavLink>
+              </span>
+              <span className="m-2">
+                <NavLink to="/">Log Out</NavLink>
+              </span>
+            </div>
+          ) : (
+            <div>
+              <span className="m-2">
+                <NavLink to="/login">Login</NavLink>
+              </span>
+              <span className="m-2">
+                <NavLink to="/signup">Sign Up</NavLink>
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </nav>

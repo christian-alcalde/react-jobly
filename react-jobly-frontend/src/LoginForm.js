@@ -3,6 +3,7 @@ import React, { useState } from "react";
 function LoginForm({ handleLogin }) {
   const initialFormData = { username: "", password: "" };
   const [formData, setFormData] = useState(initialFormData);
+  // const navigate = useNavigate();
 
   /** Update form input. */
   function handleChange(evt) {

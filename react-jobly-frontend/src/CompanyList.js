@@ -1,9 +1,10 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import SearchForm from "./SearchForm";
 import CompanyCard from "./CompanyCard";
 import { Link } from "react-router-dom";
 import JoblyApi from "./api";
+import UserContext from "./userContext";
 
 /** Show list of all companies.
  *
