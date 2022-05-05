@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import Alert from "./Alert";
 
-function SignupForm({ handleRegister }) {
+function SignupForm({ handleRegister, alert = null }) {
   const initialFormData = {
     username: "",
     password: "",
@@ -10,7 +10,6 @@ function SignupForm({ handleRegister }) {
     email: "",
   };
   const [formData, setFormData] = useState(initialFormData);
-  const navigate = useNavigate();
 
   /** Update form input. */
   function handleChange(evt) {
@@ -25,8 +24,6 @@ function SignupForm({ handleRegister }) {
   function handleSubmit(evt) {
     evt.preventDefault();
     handleRegister(formData);
-    setFormData(initialFormData);
-    navigate("/companies");
   }
 
   return (
@@ -96,6 +93,8 @@ function SignupForm({ handleRegister }) {
               aria-label="email"
             />
           </div>
+          {alert ? <Alert error={alert} /> : <></>}
+
           <button className="btn-primary btn">Submit</button>
         </form>
       </div>

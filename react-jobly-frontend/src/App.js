@@ -1,7 +1,7 @@
 import "./App.css";
 import RouteList from "./RouteList";
 import Navigation from "./Navigation";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import UserContext from "./userContext";
 import JoblyApi from "./api";
@@ -16,15 +16,22 @@ import jwt from "jwt-decode";
 function App() {
   const [currentUser, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(window.localStorage.token);
   const [alert, setAlert] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(
     function addCurrUserToState() {
+      setIsLoading(true);
       async function getUser() {
-        const username = jwt(token).username;
-        const currentUser = await JoblyApi.getUser(username);
-        setUser(currentUser);
+        try {
+          const username = jwt(token).username;
+          JoblyApi.token = token;
+          const currentUser = await JoblyApi.getUser(username);
+          setUser(currentUser);
+        } catch (err) {
+        }
         setIsLoading(false);
       }
       getUser();
@@ -32,26 +39,33 @@ function App() {
     [token]
   );
 
+  function handleToken(token){
+    JoblyApi.token = token;
+    setToken(token);
+    window.localStorage.token = token;
+    setAlert(null);
+  }
+
   async function handleLogin(formData) {
-    if (alert) setAlert(null);
     setIsLoading(true);
     try {
-      const response = await JoblyApi.login(formData);
-      JoblyApi.token = response;
-      setToken(response);
+      const tokenFromApi = await JoblyApi.login(formData);
+      handleToken(tokenFromApi)
+      navigate("/");
     } catch (err) {
-      setAlert(err[0]);
+      setAlert(err);
     }
     setIsLoading(false);
   }
 
   async function handleRegister(formData) {
     setIsLoading(true);
-    const tokenFromApi = await JoblyApi.register(formData);
-
-    if (tokenFromApi) {
-      JoblyApi.token = tokenFromApi;
-      setToken(tokenFromApi);
+    try {
+      const tokenFromApi= await JoblyApi.register(formData);
+      handleToken(tokenFromApi);
+      navigate("/companies");
+    } catch (err) {
+      setAlert(err);
     }
     setIsLoading(false);
   }
@@ -59,25 +73,23 @@ function App() {
   function handleLogout() {
     JoblyApi.token = null;
     setUser(null);
-    setToken(null);
+    window.localStorage.token = null;
   }
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <UserContext.Provider value={{ currentUser }}>
-          <Navigation handleLogout={handleLogout} />
-          {isLoading ? (
-            <Loading />
-          ) : (
-            <RouteList
-              handleLogin={handleLogin}
-              handleRegister={handleRegister}
-              alert={alert}
-            />
-          )}
-        </UserContext.Provider>
-      </BrowserRouter>
+      <UserContext.Provider value={{ currentUser }}>
+        <Navigation handleLogout={handleLogout} />
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <RouteList
+            handleLogin={handleLogin}
+            handleRegister={handleRegister}
+            alert={alert}
+          />
+        )}
+      </UserContext.Provider>
     </div>
   );
 }

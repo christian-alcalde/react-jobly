@@ -6,6 +6,8 @@ import JobList from "./JobList";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 import ProfileForm from "./ProfileForm";
+import UserContext from "./userContext";
+import { useContext } from "react";
 
 /** Houses site routes.
  *
@@ -13,6 +15,8 @@ import ProfileForm from "./ProfileForm";
  **/
 
 function RouteList({ handleLogin, handleRegister, alert }) {
+  const { currentUser } = useContext(UserContext);
+
   return (
     <Routes>
       <Route path="/" element={<Homepage />} />
@@ -22,12 +26,18 @@ function RouteList({ handleLogin, handleRegister, alert }) {
       />
       <Route
         path="/signup"
-        element={<SignupForm handleRegister={handleRegister} />}
+        element={<SignupForm handleRegister={handleRegister} alert={alert} />}
       />
-      <Route path="/profile" element={<ProfileForm />} />
-      <Route path="/companies" element={<CompanyList />} />
-      <Route path="/companies/:name" element={<CompanyDetail />} />
-      <Route path="/jobs" element={<JobList />} />
+      {currentUser ? (
+        <>
+          <Route path="/profile" element={<ProfileForm />} />
+          <Route path="/companies" element={<CompanyList />} />
+          <Route path="/companies/:name" element={<CompanyDetail />} />
+          <Route path="/jobs" element={<JobList />} />
+        </>
+      ) : (
+        <Route path="*" element={<Navigate to={"/login"} />} />
+      )}
       <Route path="*" element={<Navigate to={"/"} />} />
     </Routes>
   );

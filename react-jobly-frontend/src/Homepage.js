@@ -7,21 +7,23 @@ function Homepage() {
 
   return (
     <div className="container">
-      <h1 className="">Jobly</h1>
-      <h4 className="">All the jobs in one, convenient place.</h4>
-      {currentUser ? (
-        <div className="">Welcome back, {currentUser.firstName}</div>
-      ) : (
-        <div className="">
-          <Link to="/login">
-            <button className="btn btn-primary">Log In</button>
-          </Link>
-          <Link to="/signup">
-            <button className="btn btn-primary">Sign Up</button>
-          </Link>
-        </div>
-      )}
-    </div>
+      <div className="align-items-center justify-content-center">
+        <h1 className="">Jobly</h1>
+        <h4 className="">All the jobs in one, convenient place.</h4>
+        {currentUser ? (
+          <div className="">Welcome back, {currentUser.firstName}</div>
+        ) : (
+          <div className="">
+            <Link to="/login">
+              <button className="btn btn-primary">Log In</button>
+            </Link>
+            <Link to="/signup">
+              <button className="btn btn-primary">Sign Up</button>
+            </Link>
+          </div>
+        )}
+      </div>
+    </div>    
   );
 }
 

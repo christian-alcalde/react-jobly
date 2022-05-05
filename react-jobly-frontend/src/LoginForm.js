@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Alert from "./Alert";
 
 function LoginForm({ handleLogin, alert = null }) {
   const initialFormData = { username: "", password: "" };
   const [formData, setFormData] = useState(initialFormData);
-  const navigate = useNavigate();
 
   /** Update form input. */
   function handleChange(evt) {
@@ -20,13 +18,6 @@ function LoginForm({ handleLogin, alert = null }) {
   function handleSubmit(evt) {
     evt.preventDefault();
     handleLogin(formData);
-    setFormData(initialFormData);
-    if (!alert) {
-      console.log("ALERT");
-      navigate("/login");
-    } else {
-      navigate("/");
-    }
   }
 
   return (
