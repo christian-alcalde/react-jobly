@@ -1,9 +1,10 @@
 import "./App.css";
 import RouteList from "./RouteList";
 import Navigation from "./Navigation";
-import { BrowserRouter, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import UserContext from "./userContext";
+import AlertContext from "./alertContext";
 import JoblyApi from "./api";
 import Loading from "./Loading";
 import jwt from "jwt-decode";
@@ -14,10 +15,12 @@ import jwt from "jwt-decode";
  **/
 
 function App() {
+  const initialAlerts = {error: [], success: []};
+
   const [currentUser, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [token, setToken] = useState(window.localStorage.token);
-  const [alert, setAlert] = useState(null);
+  const [alert, setAlert] = useState(initialAlerts);
 
   const navigate = useNavigate();
 
@@ -54,7 +57,8 @@ function App() {
       handleToken(tokenFromApi);
       navigate("/");
     } catch (err) {
-      setAlert(err);
+      console.log("error", err)
+      setAlert({error: err});
     }
     setIsLoading(false);
   }
@@ -74,7 +78,8 @@ function App() {
     try {
       const response = await JoblyApi.update(formData);
       setUser(response);
-      navigate("/");
+      setAlert({success: ["Profile successfuly updated"]})
+      navigate("/profile");
     } catch (err) {
       setAlert(err);
     }
@@ -90,17 +95,19 @@ function App() {
   return (
     <div className="App">
       <UserContext.Provider value={{ currentUser }}>
-        <Navigation handleLogout={handleLogout} />
-        {isLoading ? (
-          <Loading />
-        ) : (
-          <RouteList
-            handleLogin={handleLogin}
-            handleRegister={handleRegister}
-            handleUpdate={handleUpdate}
-            alert={alert}
-          />
-        )}
+        <AlertContext.Provider value={{ alert }}>
+          <Navigation handleLogout={handleLogout} />
+          {isLoading ? (
+            <Loading />
+          ) : (
+            <RouteList
+              handleLogin={handleLogin}
+              handleRegister={handleRegister}
+              handleUpdate={handleUpdate}
+              alert={alert}
+            />
+          )}
+        </AlertContext.Provider>
       </UserContext.Provider>
     </div>
   );

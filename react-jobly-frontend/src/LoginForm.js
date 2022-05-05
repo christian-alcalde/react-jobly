@@ -21,11 +21,13 @@ function LoginForm({ handleLogin, alert = null }) {
   }
 
   return (
-    <div className="container">
-      <h2>Log In</h2>
-      <div className="card">
+    <div className="container d-flex flex-column align-items-center">
+      <h2 className="form-title">Log In</h2>
+
+      <div className="card form-card">
         <form className="NewTodoForm" onSubmit={handleSubmit}>
           <div className="mb-3">
+            <label for="login-username">Username</label>
             <input
               id="login-username"
               name="username"
@@ -38,6 +40,7 @@ function LoginForm({ handleLogin, alert = null }) {
           </div>
 
           <div className="mb-3">
+            <label for="login-password">Password</label>
             <input
               type="password"
               id="login-password"
@@ -49,8 +52,8 @@ function LoginForm({ handleLogin, alert = null }) {
               aria-label="password"
             />
           </div>
-          {alert ? <Alert error={alert} /> : <></>}
-          <button className="btn-primary btn">Submit</button>
+          <Alert />
+          <button className="btn-primary btn col-12">Submit</button>
         </form>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Alert from "./Alert";
 
-function SignupForm({ handleRegister, alert = null }) {
+function SignupForm({ handleRegister }) {
   const initialFormData = {
     username: "",
     password: "",
@@ -27,11 +27,12 @@ function SignupForm({ handleRegister, alert = null }) {
   }
 
   return (
-    <div className="container">
-      <h2>Register</h2>
-      <div className="card">
+    <div className="container d-flex flex-column align-items-center">
+      <h2 className="form-title">Register</h2>
+      <div className="card form-card">
         <form className="NewTodoForm" onSubmit={handleSubmit}>
           <div className="mb-3">
+          <label for="signup-username">Username</label>
             <input
               id="signup-username"
               name="username"
@@ -44,6 +45,7 @@ function SignupForm({ handleRegister, alert = null }) {
           </div>
 
           <div className="mb-3">
+          <label for="signup-password">Password</label>
             <input
               type="password"
               id="signup-password"
@@ -57,6 +59,7 @@ function SignupForm({ handleRegister, alert = null }) {
           </div>
 
           <div className="mb-3">
+          <label for="signup-firstName">First Name</label>
             <input
               id="signup-firstName"
               name="firstName"
@@ -69,6 +72,7 @@ function SignupForm({ handleRegister, alert = null }) {
           </div>
 
           <div className="mb-3">
+          <label for="signup-lastName">Last Name</label>
             <input
               type="lastName"
               id="signup-lastName"
@@ -82,6 +86,7 @@ function SignupForm({ handleRegister, alert = null }) {
           </div>
 
           <div className="mb-3">
+          <label for="signup-email">Email</label>
             <input
               type="email"
               id="signup-email"
@@ -93,9 +98,9 @@ function SignupForm({ handleRegister, alert = null }) {
               aria-label="email"
             />
           </div>
-          {alert ? <Alert error={alert} /> : <></>}
+          <Alert />
 
-          <button className="btn-primary btn">Submit</button>
+          <button className="btn-primary btn col-12">Submit</button>
         </form>
       </div>
     </div>

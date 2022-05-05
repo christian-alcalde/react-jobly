@@ -25,7 +25,7 @@ function RouteList({ handleLogin, handleRegister, handleUpdate, alert }) {
         <>
           <Route
             path="/profile"
-            element={<ProfileForm handleUpdate={handleUpdate} />}
+            element={<ProfileForm handleUpdate={handleUpdate} alert={alert} />}
           />
 
           <Route path="/companies" element={<CompanyList />} />

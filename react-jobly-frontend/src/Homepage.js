@@ -6,8 +6,8 @@ function Homepage() {
   const { currentUser } = useContext(UserContext);
 
   return (
-    <div className="container">
-      <div className="align-items-center justify-content-center">
+    <div className="home container text-center">
+      <div className="">
         <h1 className="">Jobly</h1>
         <h4 className="">All the jobs in one, convenient place.</h4>
         {currentUser ? (
@@ -15,15 +15,15 @@ function Homepage() {
         ) : (
           <div className="">
             <Link to="/login">
-              <button className="btn btn-primary">Log In</button>
+              <button className="btn btn-primary m-2">Log In</button>
             </Link>
             <Link to="/signup">
-              <button className="btn btn-primary">Sign Up</button>
+              <button className="btn btn-primary m-2">Sign Up</button>
             </Link>
           </div>
         )}
       </div>
-    </div>    
+    </div>
   );
 }
 

@@ -3,7 +3,7 @@ import Alert from "./Alert";
 import { useContext } from "react";
 import UserContext from "./userContext";
 
-function ProfileForm({ handleUpdate, alert = null }) {
+function ProfileForm({ handleUpdate }) {
   const { currentUser } = useContext(UserContext);
   const initialFormData = {
     username: currentUser.username,
@@ -29,11 +29,12 @@ function ProfileForm({ handleUpdate, alert = null }) {
   }
 
   return (
-    <div className="container">
-      <h2>Profile</h2>
-      <div className="card">
+    <div className="container d-flex flex-column align-items-center">
+      <h2 className="form-title">Profile</h2>
+      <div className="card form-card">
         <form className="NewTodoForm" onSubmit={handleSubmit}>
           <div className="mb-3">
+            <label for="profile-username">Username</label>
             <input
               disabled
               id="profile-username"
@@ -46,6 +47,7 @@ function ProfileForm({ handleUpdate, alert = null }) {
           </div>
 
           <div className="mb-3">
+            <label for="profile-firstName">First Name</label>
             <input
               id="profile-firstName"
               name="firstName"
@@ -57,6 +59,7 @@ function ProfileForm({ handleUpdate, alert = null }) {
           </div>
 
           <div className="mb-3">
+            <label for="profile-lastName">Last Name</label>
             <input
               type="lastName"
               id="profile-lastName"
@@ -69,6 +72,7 @@ function ProfileForm({ handleUpdate, alert = null }) {
           </div>
 
           <div className="mb-3">
+            <label for="profile-email">Email</label>
             <input
               type="email"
               id="profile-email"
@@ -79,9 +83,9 @@ function ProfileForm({ handleUpdate, alert = null }) {
               aria-label="email"
             />
           </div>
-          {alert ? <Alert error={alert} /> : <></>}
+          <Alert  />
 
-          <button className="btn-primary btn">Save Changes</button>
+          <button className="btn-primary btn col-12">Save Changes</button>
         </form>
       </div>
     </div>
