@@ -43,15 +43,15 @@ class JoblyApi {
 
   /** Get list of all companies. */
 
-  static async getCompanies() {
-    let res = await this.request(`companies`);
+  static async getCompanies(name = {}) {
+    let res = await this.request(`companies`, name);
     return res.companies;
   }
 
   /** Get list of all jobs. */
 
-  static async getJobs() {
-    let res = await this.request(`jobs`);
+  static async getJobs(title = {}) {
+    let res = await this.request(`jobs`, title);
     return res.jobs;
   }
 
@@ -67,6 +67,14 @@ class JoblyApi {
 
   static async getUser(username) {
     let res = await this.request(`users/${username}`);
+    return res.user;
+  }
+
+  static async update(formData) {
+    const username = formData.username;
+    delete formData.username;
+    console.log("formData", formData);
+    let res = await this.request(`users/${username}`, formData, "patch");
     return res.user;
   }
 }

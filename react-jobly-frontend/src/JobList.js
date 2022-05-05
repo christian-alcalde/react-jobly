@@ -26,7 +26,7 @@ function JobList() {
 
   /** Makes axios request based on search term, updates jobs state */
   async function searchJobs(searchTerm) {
-    const resp = await JoblyApi.getJobs(searchTerm);
+    const resp = await JoblyApi.getJobs({ title: searchTerm });
     setJobs({ data: resp, isLoading: false });
   }
 

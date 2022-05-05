@@ -21,6 +21,9 @@ function Navigation({ handleLogout }) {
                 <NavLink to="/jobs">Jobs</NavLink>
               </span>
               <span className="m-2">
+                <NavLink to="/profile">Profile</NavLink>
+              </span>
+              <span className="m-2">
                 <NavLink to="/" onClick={handleLogout}>
                   Log out {currentUser.username}{" "}
                 </NavLink>

@@ -28,7 +28,7 @@ function CompanyList() {
 
   /** Makes axios request based on search term, updates companies state */
   async function searchCompanies(searchTerm) {
-    const resp = await JoblyApi.getCompanies(searchTerm);
+    const resp = await JoblyApi.getCompanies({ name: searchTerm });
     setCompanies({ data: resp, isLoading: false });
   }
 

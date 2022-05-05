@@ -15,7 +15,7 @@ import jwt from "jwt-decode";
 
 function App() {
   const [currentUser, setUser] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [token, setToken] = useState(window.localStorage.token);
   const [alert, setAlert] = useState(null);
 
@@ -23,14 +23,16 @@ function App() {
 
   useEffect(
     function addCurrUserToState() {
-      setIsLoading(true);
       async function getUser() {
         try {
           const username = jwt(token).username;
           JoblyApi.token = token;
+          console.log("token", JoblyApi.token);
           const currentUser = await JoblyApi.getUser(username);
           setUser(currentUser);
+          setIsLoading(false);
         } catch (err) {
+          console.log(err);
         }
         setIsLoading(false);
       }
@@ -39,7 +41,7 @@ function App() {
     [token]
   );
 
-  function handleToken(token){
+  function handleToken(token) {
     JoblyApi.token = token;
     setToken(token);
     window.localStorage.token = token;
@@ -47,10 +49,9 @@ function App() {
   }
 
   async function handleLogin(formData) {
-    setIsLoading(true);
     try {
       const tokenFromApi = await JoblyApi.login(formData);
-      handleToken(tokenFromApi)
+      handleToken(tokenFromApi);
       navigate("/");
     } catch (err) {
       setAlert(err);
@@ -59,11 +60,21 @@ function App() {
   }
 
   async function handleRegister(formData) {
-    setIsLoading(true);
     try {
-      const tokenFromApi= await JoblyApi.register(formData);
+      const tokenFromApi = await JoblyApi.register(formData);
       handleToken(tokenFromApi);
       navigate("/companies");
+    } catch (err) {
+      setAlert(err);
+    }
+    setIsLoading(false);
+  }
+
+  async function handleUpdate(formData) {
+    try {
+      const response = await JoblyApi.update(formData);
+      setUser(response);
+      navigate("/");
     } catch (err) {
       setAlert(err);
     }
@@ -86,6 +97,7 @@ function App() {
           <RouteList
             handleLogin={handleLogin}
             handleRegister={handleRegister}
+            handleUpdate={handleUpdate}
             alert={alert}
           />
         )}

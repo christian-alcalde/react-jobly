@@ -14,29 +14,38 @@ import { useContext } from "react";
  * App -> RouteList
  **/
 
-function RouteList({ handleLogin, handleRegister, alert }) {
+function RouteList({ handleLogin, handleRegister, handleUpdate, alert }) {
   const { currentUser } = useContext(UserContext);
 
   return (
     <Routes>
       <Route path="/" element={<Homepage />} />
-      <Route
-        path="/login"
-        element={<LoginForm handleLogin={handleLogin} alert={alert} />}
-      />
-      <Route
-        path="/signup"
-        element={<SignupForm handleRegister={handleRegister} alert={alert} />}
-      />
+
       {currentUser ? (
         <>
-          <Route path="/profile" element={<ProfileForm />} />
+          <Route
+            path="/profile"
+            element={<ProfileForm handleUpdate={handleUpdate} />}
+          />
+
           <Route path="/companies" element={<CompanyList />} />
           <Route path="/companies/:name" element={<CompanyDetail />} />
           <Route path="/jobs" element={<JobList />} />
         </>
       ) : (
-        <Route path="*" element={<Navigate to={"/login"} />} />
+        <>
+          <Route
+            path="/login"
+            element={<LoginForm handleLogin={handleLogin} alert={alert} />}
+          />
+          <Route
+            path="/signup"
+            element={
+              <SignupForm handleRegister={handleRegister} alert={alert} />
+            }
+          />
+          <Route path="*" element={<Navigate to={"/login"} />} />
+        </>
       )}
       <Route path="*" element={<Navigate to={"/"} />} />
     </Routes>
