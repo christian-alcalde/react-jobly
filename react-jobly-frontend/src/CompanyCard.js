@@ -18,6 +18,7 @@ function CompanyCard({ company }) {
         <img src={`${compImg}`} alt={`${company.name}'s logo.`} className="company-logo"></img>
       </p>
       <p className="container">{company.description}</p>
+      
     </div>
   );
 }
