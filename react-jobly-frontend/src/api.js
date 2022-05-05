@@ -71,10 +71,18 @@ class JoblyApi {
   }
 
   static async update(formData) {
-    const username = formData.username;
-    delete formData.username;
+    const formDataDuplicate = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+    };
+
     console.log("formData", formData);
-    let res = await this.request(`users/${username}`, formData, "patch");
+    let res = await this.request(
+      `users/${formData.username}`,
+      formDataDuplicate,
+      "patch"
+    );
     return res.user;
   }
 }

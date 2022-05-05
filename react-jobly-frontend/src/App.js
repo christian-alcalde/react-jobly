@@ -15,7 +15,7 @@ import jwt from "jwt-decode";
  **/
 
 function App() {
-  const initialAlerts = {error: [], success: []};
+  const initialAlerts = { error: [], success: [] };
 
   const [currentUser, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -48,7 +48,6 @@ function App() {
     JoblyApi.token = token;
     setToken(token);
     window.localStorage.token = token;
-    setAlert(null);
   }
 
   async function handleLogin(formData) {
@@ -57,9 +56,9 @@ function App() {
       handleToken(tokenFromApi);
       navigate("/");
     } catch (err) {
-      console.log("error", err)
-      setAlert({error: err});
+      setAlert({ error: err });
     }
+    setTimeout(resetAlerts, 10000);
     setIsLoading(false);
   }
 
@@ -69,8 +68,9 @@ function App() {
       handleToken(tokenFromApi);
       navigate("/companies");
     } catch (err) {
-      setAlert(err);
+      setAlert({ error: err });
     }
+    setTimeout(resetAlerts, 10000);
     setIsLoading(false);
   }
 
@@ -78,11 +78,12 @@ function App() {
     try {
       const response = await JoblyApi.update(formData);
       setUser(response);
-      setAlert({success: ["Profile successfuly updated"]})
+      setAlert({ success: ["Profile successfuly updated"] });
       navigate("/profile");
     } catch (err) {
-      setAlert(err);
+      setAlert({ error: err });
     }
+    setTimeout(resetAlerts, 10000);
     setIsLoading(false);
   }
 
@@ -90,6 +91,11 @@ function App() {
     JoblyApi.token = null;
     setUser(null);
     window.localStorage.token = null;
+  }
+
+  function resetAlerts() {
+    setAlert(initialAlerts);
+    console.log("shouldve reset by now");
   }
 
   return (
