@@ -14,18 +14,10 @@ import Loading from "./Loading";
 
 function JobCard({ job, handleApplications }) {
   const { currentUser } = useContext(UserContext);
-  const [jobsApplied, setJobsApplied] = useState(new Set(currentUser.applications));
-  const [isLoading, setIsLoading] = useState(false);
 
-  function handleClick(){
-    setIsLoading(true);
-    handleApplications(job.id);
-    const updatedSet = jobsApplied.add(job.id);
-    setJobsApplied(updatedSet);
-    setIsLoading(false);
+  async function handleClick() {
+    await handleApplications(job.id);
   }
-
-  console.log("jobsApplied=", jobsApplied);
 
   return (
     <div>
@@ -34,9 +26,7 @@ function JobCard({ job, handleApplications }) {
       <p className="fw-light">Salary: {job.salary}</p>
       <p className="fw-light">Equity: {job.equity}</p>
 
-      {isLoading
-      ? <Loading />
-      : (!jobsApplied.has(job.id) ? (
+      {!currentUser.applications.includes(job.id) ? (
         <div className="d-flex justify-content-end">
           <button className="btn btn-danger" onClick={handleClick}>
             Apply
@@ -48,10 +38,7 @@ function JobCard({ job, handleApplications }) {
             Applied
           </button>
         </div>
-
-      ))}
-
-
+      )}
     </div>
   );
 }

@@ -242,6 +242,8 @@ class User {
            VALUES ($1, $2)`,
       [jobId, username]
     );
+
+    return await User.get(username);
   }
 
   /** Unapply for job: update db, returns jobId.

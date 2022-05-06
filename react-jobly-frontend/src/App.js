@@ -55,7 +55,7 @@ function App() {
       handleToken(tokenFromApi);
       navigate("/");
     } catch (err) {
-      setAlert({error: err});
+      setAlert({ error: err });
     }
     setTimeout(resetAlerts, 10000);
     setIsLoading(false);
@@ -67,7 +67,7 @@ function App() {
       handleToken(tokenFromApi);
       navigate("/companies");
     } catch (err) {
-      setAlert({error: err});
+      setAlert({ error: err });
     }
     setTimeout(resetAlerts, 10000);
     setIsLoading(false);
@@ -80,33 +80,28 @@ function App() {
       setAlert({ success: ["Profile successfuly updated"] });
       navigate("/profile");
     } catch (err) {
-      setAlert({error: err});
+      setAlert({ error: err });
     }
     setTimeout(resetAlerts, 10000);
     setIsLoading(false);
   }
 
-  async function handleApplications(jobId){
-
+  async function handleApplications(jobId) {
     const jobsApplied = new Set(currentUser.applications);
 
-    if(jobsApplied.has(jobId)){
+    if (jobsApplied.has(jobId)) {
       try {
         await JoblyApi.unApply(currentUser.username, jobId);
-        const updatedUser = currentUser;
-        updatedUser.applications.push(jobId);
+        const updatedUser = await JoblyApi.getUser(currentUser.username);
         setCurrentUser(updatedUser);
-
       } catch (err) {
         console.log(err);
       }
-    }else{
+    } else {
       try {
         await JoblyApi.apply(currentUser.username, jobId);
-        const updatedUser = currentUser;
-        updatedUser.applications = updatedUser.applications.filter(a => a !== jobId);
+        const updatedUser = await JoblyApi.getUser(currentUser.username);
         setCurrentUser(updatedUser);
-
       } catch (err) {
         console.log(err);
       }
