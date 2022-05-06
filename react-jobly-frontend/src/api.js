@@ -51,6 +51,10 @@ class JoblyApi {
   /** Get list of all jobs. */
 
   static async getJobs(title = {}) {
+    if (!Object.values(title)) {
+      let res = await this.request(`jobs`);
+      return res.jobs;
+    }
     let res = await this.request(`jobs`, title);
     return res.jobs;
   }
@@ -91,9 +95,6 @@ class JoblyApi {
   }
 
   static async unApply(username, jobId) {
-    console.log("res");
-    console.log("usernam", username);
-    console.log("id", jobId);
     let res = await this.request(
       `users/${username}/jobs/${jobId}`,
       {},

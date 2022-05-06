@@ -14,6 +14,7 @@ import Loading from "./Loading";
 
 function JobCard({ job, handleApplications }) {
   const { currentUser } = useContext(UserContext);
+  const jobsApplied = new Set(currentUser.applications);
 
   async function handleClick() {
     await handleApplications(job.id);
@@ -26,7 +27,7 @@ function JobCard({ job, handleApplications }) {
       <p className="fw-light">Salary: {job.salary}</p>
       <p className="fw-light">Equity: {job.equity}</p>
 
-      {!currentUser.applications.includes(job.id) ? (
+      {!jobsApplied.has(job.id) ? (
         <div className="d-flex justify-content-end">
           <button className="btn btn-danger" onClick={handleClick}>
             Apply
