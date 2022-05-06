@@ -1,4 +1,5 @@
 import { useState } from "react";
+import _ from "lodash";
 
 /** Form for filtering companies/jobs.
  *
@@ -12,9 +13,15 @@ function SearchForm({ search }) {
   const [formData, setFormData] = useState("");
 
   /** Update form input. */
-  function handleChange(evt) {
+  async function handleChange(evt) {
     const { value } = evt.target;
-    setFormData(value);
+    setFormData(value)
+    console.log("formData=", formData);
+
+      if(formData.title.length > 0){
+        const handleLiveSearch = _.debounce(await search(formData), 1000)
+        handleLiveSearch()
+      }
   }
 
   /** Call parent function and clear form. */
@@ -23,6 +30,7 @@ function SearchForm({ search }) {
     search(formData);
     setFormData("");
   }
+
 
   return (
     <form className="SearchForm-form row g-3 my-3 justify-content-center" onSubmit={handleSubmit}>
