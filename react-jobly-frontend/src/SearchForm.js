@@ -45,7 +45,7 @@ function SearchForm({ search }) {
         />
       </div>
       <div className="col-auto">
-        <button className="btn btn-primary">Search</button>
+        <button className="btn searchBtn">Search</button>
       </div>
     </form>
   );

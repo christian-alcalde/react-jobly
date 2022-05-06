@@ -10,16 +10,20 @@
 .card {
   width: 90%;
   padding: 10px;
+}
+
+.jobCard {
   background-color: rgb(255, 255, 255);
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.7);
   transition: 0.3s;
 }
-.card:hover {
+.jobCard:hover {
   background-color: rgb(255, 255, 255);
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.9);
   transition: 0.5s;
 }
-.form-title{
+
+.form-title {
   margin-top: 50px;
 }
 
@@ -29,33 +33,38 @@
   padding: 20px;
 }
 
+.searchBtn {
+  background: #c1a9bb;
+  border-color: #c1a9bb;
+}
+
 .btn-primary {
-  background: #155363;
-  border-color: #155363;
+  background: #e96f6f;
+  border-color: #e96f6f;
 }
 
 .btn-primary:hover {
-  background: #1f6d80;
-  border-color: #1f6d80;
+  background: #e96f6f;
+  border-color: #e96f6f;
 }
 .btn-danger {
-  background: #155363;
-  border-color: #155363;
+  background: #e96f6f;
+  border-color: #e96f6f;
 }
 
 .btn-danger:hover {
-  background: #1f6d80;
-  border-color: #1f6d80;
+  background: #e96f6f;
+  border-color: #e96f6f;
 }
 .btn-warning {
-  background: #155363;
-  border-color: #155363;
+  background: #e96f6f;
+  border-color: #e96f6f;
   color: white;
 }
 
 .btn-warning:hover {
-  background: #1f6d80;
-  border-color: #1f6d80;
+  background: #e96f6f;
+  border-color: #e96f6f;
   color: white;
 }
 
@@ -66,9 +75,9 @@ a {
 
 .jobly-title {
   font-size: 5em;
-  color: rgb(233, 217, 217);
+  color: #fefbf7;
+  -webkit-text-stroke: 1px black;
 }
-
 
 label {
   font-weight: 500;
