@@ -15,7 +15,7 @@ import jwt from "jwt-decode";
  **/
 
 function App() {
-  const initialAlerts = {error: [], success: []};
+  const initialAlerts = { error: [], success: [] };
 
   const [currentUser, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -77,7 +77,7 @@ function App() {
     try {
       const response = await JoblyApi.update(formData);
       setUser(response);
-      setAlert({success: ["Profile successfuly updated"]})
+      setAlert({ success: ["Profile successfuly updated"] });
       navigate("/profile");
     } catch (err) {
       setAlert({error: err});

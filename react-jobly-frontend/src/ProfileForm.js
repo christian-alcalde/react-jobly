@@ -13,6 +13,7 @@ function ProfileForm({ handleUpdate }) {
   };
   const [formData, setFormData] = useState(initialFormData);
 
+  console.log("form data from profile", formData);
   /** Update form input. */
   function handleChange(evt) {
     const { name, value } = evt.target;
@@ -83,7 +84,7 @@ function ProfileForm({ handleUpdate }) {
               aria-label="email"
             />
           </div>
-          <Alert  />
+          <Alert />
 
           <button className="btn-primary btn col-12">Save Changes</button>
         </form>

@@ -79,7 +79,7 @@ class JoblyApi {
 
     let res = await this.request(
       `users/${formData.username}`,
-      formDataDuplicate,  
+      formDataDuplicate,
       "patch"
     );
     return res.user;
