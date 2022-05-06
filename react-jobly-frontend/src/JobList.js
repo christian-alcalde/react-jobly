@@ -13,7 +13,7 @@ import JoblyApi from "./api";
  * RouteList -> JobList -> [JobCardList -> JobCard, SearchForm]
  */
 
-function JobList() {
+function JobList({ handleApplications }) {
   const [jobs, setJobs] = useState({ data: null, isLoading: true });
 
   useEffect(function fetchJobsOnRender() {
@@ -35,7 +35,7 @@ function JobList() {
   return (
     <div>
       <SearchForm search={searchJobs} />
-      <JobCardList jobs={jobs.data} />
+      <JobCardList jobs={jobs.data} handleApplications={handleApplications} />
     </div>
   );
 }

@@ -108,28 +108,6 @@ router.patch(
   }
 );
 
-/** DELETE /[username]/jobs/[id]  {deleted: jobId}
- *
- * Returns {"deleted": jobId}
- *
- * Authorization required: admin or same-user-as-:username
- * */
-
-router.delete(
-  "/:username/jobs/:id",
-  ensureCorrectUserOrAdmin,
-  async function (req, res, next) {
-    try {
-      const jobId = +req.params.id;
-      await User.unApplyToJob(req.params.username, jobId);
-      console.log("made it in the try");
-      return res.json({ deleted: jobId });
-    } catch (err) {
-      console.log("made it in the catch");
-      return next(err);
-    }
-  }
-);
 
 /** DELETE /[username]  =>  { deleted: username }
  *
@@ -147,14 +125,14 @@ router.delete(
       return next(err);
     }
   }
-);
+  );
 
-/** POST /[username]/jobs/[id]  { state } => { application }
- *
- * Returns {"applied": jobId}
- *
- * Authorization required: admin or same-user-as-:username
- * */
+  /** POST /[username]/jobs/[id]  { state } => { application }
+   *
+   * Returns {"applied": jobId}
+   *
+   * Authorization required: admin or same-user-as-:username
+   * */
 
 router.post(
   "/:username/jobs/:id",
@@ -170,6 +148,30 @@ router.post(
       return next(err);
     }
   }
-);
+  );
 
-module.exports = router;
+  /** DELETE /[username]/jobs/[id]  {deleted: jobId}
+   *
+   * Returns {"deleted": jobId}
+   *
+   * Authorization required: admin or same-user-as-:username
+   * */
+
+  router.delete(
+    "/:username/jobs/:id",
+    ensureCorrectUserOrAdmin,
+    async function (req, res, next) {
+      try {
+        const jobId = +req.params.id;
+        await User.unApplyToJob(req.params.username, jobId);
+        console.log("made it in the try");
+        return res.json({ deleted: jobId });
+      } catch (err) {
+        console.log("made it in the catch");
+        return next(err);
+      }
+    }
+  );
+
+  
+  module.exports = router;

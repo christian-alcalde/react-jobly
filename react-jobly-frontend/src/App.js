@@ -17,7 +17,7 @@ import jwt from "jwt-decode";
 function App() {
   const initialAlerts = { error: [], success: [] };
 
-  const [currentUser, setUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [token, setToken] = useState(window.localStorage.token);
   const [alert, setAlert] = useState(initialAlerts);
@@ -31,7 +31,7 @@ function App() {
           const username = jwt(token).username;
           JoblyApi.token = token;
           const currentUser = await JoblyApi.getUser(username);
-          setUser(currentUser);
+          setCurrentUser(currentUser);
           setIsLoading(false);
         } catch (err) {
           console.log(err);
@@ -76,7 +76,7 @@ function App() {
   async function handleUpdate(formData) {
     try {
       const response = await JoblyApi.update(formData);
-      setUser(response);
+      setCurrentUser(response);
       setAlert({ success: ["Profile successfuly updated"] });
       navigate("/profile");
     } catch (err) {
@@ -86,9 +86,36 @@ function App() {
     setIsLoading(false);
   }
 
+  async function handleApplications(jobId){
+
+    const jobsApplied = new Set(currentUser.applications);
+
+    if(jobsApplied.has(jobId)){
+      try {
+        await JoblyApi.unApply(currentUser.username, jobId);
+        const updatedUser = currentUser;
+        updatedUser.applications.push(jobId);
+        setCurrentUser(updatedUser);
+
+      } catch (err) {
+        console.log(err);
+      }
+    }else{
+      try {
+        await JoblyApi.apply(currentUser.username, jobId);
+        const updatedUser = currentUser;
+        updatedUser.applications = updatedUser.applications.filter(a => a !== jobId);
+        setCurrentUser(updatedUser);
+
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
+
   function handleLogout() {
     JoblyApi.token = null;
-    setUser(null);
+    setCurrentUser(null);
     window.localStorage.token = null;
   }
 
@@ -105,6 +132,7 @@ function App() {
             <Loading />
           ) : (
             <RouteList
+              handleApplications={handleApplications}
               handleLogin={handleLogin}
               handleRegister={handleRegister}
               handleUpdate={handleUpdate}

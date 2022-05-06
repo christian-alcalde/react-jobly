@@ -275,7 +275,7 @@ class User {
       `DELETE
           FROM applications
           WHERE username = $1 AND job_id = $2
-          RETURNING job_id AS 'jobId'`,
+          RETURNING job_id AS "jobId"`,
       [username, jobId]
     );
   }

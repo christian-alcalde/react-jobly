@@ -14,7 +14,7 @@ import { useContext } from "react";
  * App -> RouteList
  **/
 
-function RouteList({ handleLogin, handleRegister, handleUpdate }) {
+function RouteList({ handleLogin, handleRegister, handleUpdate, handleApplications }) {
   const { currentUser } = useContext(UserContext);
 
   return (
@@ -30,7 +30,7 @@ function RouteList({ handleLogin, handleRegister, handleUpdate }) {
 
           <Route path="/companies" element={<CompanyList />} />
           <Route path="/companies/:name" element={<CompanyDetail />} />
-          <Route path="/jobs" element={<JobList />} />
+          <Route path="/jobs" element={<JobList handleApplications={handleApplications} />} />
         </>
       ) : (
         <>

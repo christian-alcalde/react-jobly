@@ -1,6 +1,7 @@
 import UserContext from "./userContext";
 import { useContext, useEffect, useState } from "react";
 import JoblyApi from "./api";
+import Loading from "./Loading";
 
 /** Displays a single JobCard
  *
@@ -11,29 +12,20 @@ import JoblyApi from "./api";
  * RouteList -> JobList -> JobCardList -> JobCard
  */
 
-function JobCard({ job }) {
+function JobCard({ job, handleApplications }) {
   const { currentUser } = useContext(UserContext);
-  const [applied, setApplied] = useState(false);
-  const jobsApplied = new Set(currentUser.applications);
+  const [jobsApplied, setJobsApplied] = useState(new Set(currentUser.applications));
+  const [isLoading, setIsLoading] = useState(false);
 
-  async function handleApply() {
-    try {
-      await JoblyApi.apply(currentUser.username, job.id);
-      setApplied(true);
-    } catch (err) {
-      console.log(err);
-    }
+  function handleClick(){
+    setIsLoading(true);
+    handleApplications(job.id);
+    const updatedSet = jobsApplied.add(job.id);
+    setJobsApplied(updatedSet);
+    setIsLoading(false);
   }
 
-  async function handleUnApply() {
-    console.log("here made it");
-    try {
-      await JoblyApi.unApply(currentUser.username, job.id);
-      setApplied(false);
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  console.log("jobsApplied=", jobsApplied);
 
   return (
     <div>
@@ -42,19 +34,24 @@ function JobCard({ job }) {
       <p className="fw-light">Salary: {job.salary}</p>
       <p className="fw-light">Equity: {job.equity}</p>
 
-      {!jobsApplied.has(job.id) && !applied ? (
+      {isLoading
+      ? <Loading />
+      : (!jobsApplied.has(job.id) ? (
         <div className="d-flex justify-content-end">
-          <button className="btn btn-danger" onClick={handleApply}>
+          <button className="btn btn-danger" onClick={handleClick}>
             Apply
           </button>
         </div>
       ) : (
         <div className="d-flex justify-content-end">
-          <button className="btn btn-danger" onClick={handleUnApply}>
+          <button className="btn btn-danger" onClick={handleClick}>
             Applied
           </button>
         </div>
-      )}
+
+      ))}
+
+
     </div>
   );
 }
