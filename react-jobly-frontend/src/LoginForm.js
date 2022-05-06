@@ -18,6 +18,7 @@ function LoginForm({ handleLogin, alert = null }) {
   function handleSubmit(evt) {
     evt.preventDefault();
     handleLogin(formData);
+
   }
 
   return (

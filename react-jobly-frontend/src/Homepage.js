@@ -8,7 +8,7 @@ function Homepage() {
   return (
     <div className="home container text-center">
       <div className="">
-        <h1 className="">Jobly</h1>
+        <h1 className="jobly-title">Jobly</h1>
         <h4 className="">All the jobs in one, convenient place.</h4>
         {currentUser ? (
           <div className="">Welcome back, {currentUser.firstName}</div>

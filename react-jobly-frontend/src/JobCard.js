@@ -20,6 +20,9 @@ function JobCard({ job, handleApplications }) {
     await handleApplications(job.id);
   }
 
+  const buttonColor = !jobsApplied.has(job.id) ? "danger" : "warning";
+  const applyApplied = !jobsApplied.has(job.id) ? "Apply" : "Applied";
+
   return (
     <div>
       <p className="fw-bold">{job.title}</p>
@@ -27,19 +30,12 @@ function JobCard({ job, handleApplications }) {
       <p className="fw-light">Salary: {job.salary}</p>
       <p className="fw-light">Equity: {job.equity}</p>
 
-      {!jobsApplied.has(job.id) ? (
         <div className="d-flex justify-content-end">
-          <button className="btn btn-danger" onClick={handleClick}>
-            Apply
+          <button className={`btn btn-${buttonColor}`} onClick={handleClick}>
+          {applyApplied}
           </button>
         </div>
-      ) : (
-        <div className="d-flex justify-content-end">
-          <button className="btn btn-danger" onClick={handleClick}>
-            Applied
-          </button>
-        </div>
-      )}
+
     </div>
   );
 }

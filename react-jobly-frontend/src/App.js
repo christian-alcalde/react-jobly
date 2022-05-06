@@ -31,6 +31,7 @@ function App() {
           const username = jwt(token).username;
           JoblyApi.token = token;
           const currentUser = await JoblyApi.getUser(username);
+          // setCurrentUser({}...currentUser, application: new Set()});
           setCurrentUser(currentUser);
           setIsLoading(false);
         } catch (err) {

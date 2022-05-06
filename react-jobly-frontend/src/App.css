@@ -10,6 +10,14 @@
 .card {
   width: 90%;
   padding: 10px;
+  background-color: rgb(255, 255, 255);
+  background-color: rgba(255, 255, 255, 0.3);
+  transition: 0.3s;
+}
+.card:hover {
+  background-color: rgb(255, 255, 255);
+  background-color: rgba(255, 255, 255, 0.8);
+  transition: 0.5s;
 }
 .form-title{
   margin-top: 50px;
@@ -21,9 +29,44 @@
   padding: 20px;
 }
 
+.btn-primary {
+  background: #155363;
+  border-color: #155363;
+}
+
+.btn-primary:hover {
+  background: #1f6d80;
+  border-color: #1f6d80;
+}
+.btn-danger {
+  background: #155363;
+  border-color: #155363;
+}
+
+.btn-danger:hover {
+  background: #1f6d80;
+  border-color: #1f6d80;
+}
+.btn-warning {
+  background: #155363;
+  border-color: #155363;
+  color: white;
+}
+
+.btn-warning:hover {
+  background: #1f6d80;
+  border-color: #1f6d80;
+  color: white;
+}
+
 a {
   text-decoration: none;
   color: black;
+}
+
+.jobly-title {
+  font-size: 5em;
+  color: rgb(233, 217, 217);
 }
 
 

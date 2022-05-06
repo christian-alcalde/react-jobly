@@ -17,8 +17,8 @@ function SearchForm({ search }) {
     const { value } = evt.target;
     setFormData(value);
 
-    const liveSearch = _.debounce(() => search(value), 500);
-    liveSearch();
+    const debouncedSearch = _.debounce(() => search(value), 500);
+    debouncedSearch();
   }
 
   /** Call parent function and clear form. */
