@@ -1,70 +1,8 @@
-# Getting Started with Create React App
+# Jobly App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+One project that I have worked on was a job board app called Jobly. This app was written with Express.js on the backend and React.js on the frontend with PostgreSQL as our database. You are able to sign in and create an account and are allowed to interact with different job listings, companies, and user data saved in the PostgreSQL database. 
 
-## Available Scripts
+Using Express.js, I was able to implement a RESTful API backend that provides CRUD capabilities. In order to interact with the database and execute SQL queries, I used the Node PG library. Inside are model classes for companies, jobs, and users. In the company and job models, there are methods that allow for creating, reading, updating, and deleting. This is done by executing specific SQL queries inside each method. There is also a filter method in both classes. For the user class, there are methods to perform CRUD operations as well as apply for jobs. Not only that, I have also included authentication middleware that checks to see if a user has the correct credentials to be performing a command. From here, different RESTful routes were written according to the different class methods.
 
-In the project directory, you can run:
+On the front end, I was able to use React.js to create a single page web app. React Router was used to change the URL and make it easier to bookmark pages. Authentication was implemented by requiring a JSON web token to be in local storage. A useEffect hook was used to check if there was a web token on all protected routes. Once logged in, users are able to see a list of companies as well as the jobs associated with each company. Different components were created such as detail components, list components, and card components. One trade off that was considered was deciding whether or not to include API logic within the different components. The down side to doing this would have been very cluttered React components, littered with SQL in the routes. To get around this, I instead chose to make a single API class that had different helper methods to consolidate all the SQL logic to one file.
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
