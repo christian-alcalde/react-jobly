@@ -1,6 +1,6 @@
 # Jobly App
 
-One project that I have worked on was a job board app called Jobly. This app was written with Express.js on the backend and React.js on the frontend with PostgreSQL as our database. You are able to sign in and create an account and are allowed to interact with different job listings, companies, and user data saved in the PostgreSQL database. 
+This app was written with Express.js on the backend and React.js on the frontend with PostgreSQL as our database. You are able to sign in and create an account and are allowed to interact with different job listings, companies, and user data saved in the PostgreSQL database. 
 
 Using Express.js, I was able to implement a RESTful API backend that provides CRUD capabilities. In order to interact with the database and execute SQL queries, I used the Node PG library. Inside are model classes for companies, jobs, and users. In the company and job models, there are methods that allow for creating, reading, updating, and deleting. This is done by executing specific SQL queries inside each method. There is also a filter method in both classes. For the user class, there are methods to perform CRUD operations as well as apply for jobs. Not only that, I have also included authentication middleware that checks to see if a user has the correct credentials to be performing a command. From here, different RESTful routes were written according to the different class methods.
 
